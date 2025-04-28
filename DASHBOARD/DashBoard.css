@@ -1,0 +1,22 @@
+.table-container h1{
+    padding: 20px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+}
+.table-box{
+    display: flex;
+    padding: 30px;         
+    margin: 10px;          
+    width: 80%;        
+    background-color: #f9f9f9;
+    align-items: center;
+    justify-self: center;
+    font-size: 25px;
+
+}
+.table-box button{
+    margin: 10px;
+}
+
