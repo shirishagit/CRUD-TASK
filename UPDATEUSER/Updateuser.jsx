@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const UpdateUser = () => {
-    const {id } = useParams();
+  const { id } = useParams();
 
-    const users = {
+  const users = {
     fullName: "",
     Email: "",
     contact: "",
@@ -14,8 +16,10 @@ const UpdateUser = () => {
 
   const [user, setUser] = useState(users);
 
+     const navigate = useNavigate()
+
   useEffect(() => {
-    axios.put(`http://localhost:8000/users/${id}`)
+    axios.get(`http://localhost:8000/users/${id}`)
     .then((res)=>{
       setUser(res.data)
     })
@@ -23,8 +27,20 @@ const UpdateUser = () => {
       console.log(error)
     })
   }, [id]);
-
   
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+      await axios.put(`http://localhost:8000/users/${id}`,user,{
+        headers:{
+            'Content-Type':'application/json'
+          }
+})
+       .then((res)=>
+        console.log(res)
+       )
+        navigate("/")
+  }
 
   const handlerChangeInput = async (e) => {
     const { name, value } = e.target;
@@ -33,20 +49,20 @@ const UpdateUser = () => {
       [name]: value,
     });
   };
+ 
 
   return (
     <div>
-      
       <div className="form-body">
         <h1 className="form-heading">Edit Details Form</h1>
         <div className="form-container">
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4">
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter User Name"
-                name="fullNmae"
+                name="fullName"
                 value={user.fullName}
                 onChange={handlerChangeInput}
               />

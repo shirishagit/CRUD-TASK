@@ -21,15 +21,13 @@ const DashBoard = () => {
    },[])
    
    
-async function deleteUser(id) {
-   await axios.delete(`http://localhost:8000/users/${id}`)
-   .then((responce)=>{
-    console.log(responce)
-   })
-  .catch((error)=>{
-  console.log(error)
-  })
-}
+   const deleteUser = async(userId)=>{
+    await axios.delete(`http://localhost:8000/users/${userId}`)
+    .then((responce)=>{
+      setUsers((preUser)=>preUser.filter((user)=>user._id !== userId))
+    })
+    .catch(error=>console.log(error))
+  }
   
   return (
     <div className="table-container">
@@ -54,8 +52,8 @@ async function deleteUser(id) {
               <th>{user.Email}</th>
               <th>{user.contact}</th>
               <th>
-               <Link to={`/users/id`}> <button  className="btn btn-primary">Edit</button></Link>
-                <button onClick={()=>deleteUser(user.id)} className="btn btn-danger">Delete</button>
+               <Link to={`/user/`+user._id}> <button  className="btn btn-primary">Edit</button></Link>
+                <button onClick={()=>deleteUser(user._id)} className="btn btn-danger">Delete</button>
               </th>
             </tr>
                 )

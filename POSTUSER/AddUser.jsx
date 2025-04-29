@@ -12,7 +12,8 @@ const  AddUser = ()=>{
       contact:"",
 }
 
-     const [user, setUser ]= useState(users)
+  const [user, setUser ]= useState(users)
+ 
 
  const navigate= useNavigate()
 
@@ -27,15 +28,22 @@ const  AddUser = ()=>{
        .then((res)=>
         console.log(res)
        )
+      
         navigate("/")
+      
   }
+
+
   const handlerChangeInput = async (e)=>{
       const {name,value} = e.target;
       setUser({
         ...user,
         [name]:value
       })
+    
   }
+
+  
  
     return (
         <div className="form-body">
@@ -48,14 +56,17 @@ const  AddUser = ()=>{
         <Form.Group className="mb-4" >
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" placeholder="Enter User Name" name="fullName" value={user.fullName} onChange={handlerChangeInput}/>
+          
         </Form.Group>
         <Form.Group className="mb-4">
           <Form.Label>Email Id</Form.Label>
           <Form.Control type="text" placeholder="Enter a vaild Email" name="Email" value={user.Email} onChange={handlerChangeInput} />
+          
         </Form.Group>
         <Form.Group className="mb-4" >
           <Form.Label>Contact</Form.Label>
           <Form.Control type="number" placeholder="Enter User contact" name="contact" value={user.contact} onChange={handlerChangeInput}/>
+          
         </Form.Group>
         <Button type="submit" variant="primary" onClick={handerSubmit} >Submit Details</Button> 
       </Form>
